@@ -1,13 +1,31 @@
 import '../styles/App.scss';
 import { useState } from 'react';
 
+
 function App() {
   const [numberOfErrors, setNumberOfErrors] = useState(0);
-  function handleNumerErorrs (ev) {
+  const [lastLetter,setLastLetter] = useState(''); 
+  
+  const handleNumerErorrs = (ev) => {
     ev.preventDefault();
     setNumberOfErrors (numberOfErrors + 1);
-
   }
+
+   const handleLastLetter = (event) => {
+    // event.preventDefault();
+    const valueLastLetter = event.target.value;
+     const textValidation = /^[A-Za-zñÑáéíóúÁÉÍÓÚüÜïÏç\s]*$/;
+    if (textValidation.test(valueLastLetter)) {
+      setLastLetter(valueLastLetter);      
+    }
+    else {
+      alert('Esa letra no es válida');
+    }
+    console.log(valueLastLetter)
+  } 
+
+ 
+
   return <div className="page">
         <header>
           <h1 className="header__title">Juego del ahorcado</h1>
@@ -48,6 +66,8 @@ function App() {
                 type="text"
                 name="last-letter"
                 id="last-letter"
+                value={lastLetter}
+                onChange={handleLastLetter}
               />
             </form>
           </section>
